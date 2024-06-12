@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:textColorLink="@color/muted_blue"
+            android:textColor="@color/black"
             android:hint="Texto do cartão" />
 
     </com.google.android.material.textfield.TextInputLayout>

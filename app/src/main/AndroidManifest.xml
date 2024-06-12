@@ -23,7 +23,8 @@
         </activity>
 
         <activity
-            android:name=".view.CardDetailActivity"  android:exported="true">
+            android:name=".view.CardDetailActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -31,9 +32,7 @@
         </activity>
         <activity
             android:name=".view.CreateCardActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
