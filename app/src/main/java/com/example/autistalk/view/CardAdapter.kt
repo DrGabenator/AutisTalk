@@ -1,47 +1,46 @@
 package com.example.autistalk.view
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
 import com.example.autistalk.R
 import com.example.autistalk.data.Card
 
-class CardAdapter(
-    private val cards: MutableList<Card>,
-    private val onPlayClickListener: (String) -> Unit
-) : RecyclerView.Adapter<CardViewHolder>() {
+class CardAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
+    private val cards = mutableListOf<Card>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_item, parent, false)
-        return CardViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val card = cards[position]
-        holder.text.text = card.getText()
-        holder.emoji.text = card.getEmojiCharSequence()
-        holder.itemView.setBackgroundColor(card.getBackground().toColorInt())
-
-        holder.playButton.setOnClickListener {
-            onPlayClickListener(card.getText())
+        holder.cardTextTextView.text = card.text
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, CardDetailActivity::class.java)
+            intent.putExtra("card_id", card.id)
+            holder.itemView.context.startActivity(intent)
         }
     }
 
-    fun updateData(newCards: List<Card>) {
-        cards.clear()
-        cards.addAll(newCards)
+    override fun getItemCount(): Int {
+        Log.d("CardAdapter", "getItemCount: ${cards.size}") // Check if getItemCount is returning 0
+        return cards.size
+    }
+
+    fun submitList(cards: List<Card>) {
+        Log.d("CardAdapter", "submitList: $cards") // Check if submitList is being called with a non-empty list
+        this.cards.clear()
+        this.cards.addAll(cards)
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = cards.size
-}
-
-class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val text: TextView = itemView.findViewWithTag(R.id.card_text)
-    val emoji: TextView = itemView.findViewById(R.id.card_emoji)
-    val playButton: Button = itemView.findViewById(R.id.play_button)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val cardTextTextView: TextView = itemView.findViewById(R.id.cardTextTextView)
+    }
 }

@@ -13,7 +13,7 @@
         tools:targetApi="33">
 
         <activity
-            android:name=".view.CardListActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,17 @@
         </activity>
 
         <activity
-            android:name=".view.NewActivityName"  android:exported="true">
+            android:name=".view.CardDetailActivity"  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.CreateCardActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

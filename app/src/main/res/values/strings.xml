@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AutisTalk</string>
+    <string name="search">Pesquisar</string>
+    <string name="add">Adicionar</string>
+    <string name="edit">Editar</string>
+    <string name="rotate">Girar</string>
+    <string name="play">Reproduzir</string>
+    <string name="return_to_normal">Voltar ao normal</string>
+    <string name="text">Texto</string>
+    <string name="add_card">Adicionar Cartão</string>
+    <string name="category">Categoria</string>
 </resources>
