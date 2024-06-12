@@ -1,6 +1,5 @@
 package com.example.autistalk.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -9,7 +8,7 @@ interface CardDao {
     fun getAllCards(): List<Card>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCard(card: Card)
+    fun createOrUpdateCard(card: Card)
 
     @Query("SELECT * FROM card WHERE text LIKE :query")
     fun searchCards(query: String): List<Card>?

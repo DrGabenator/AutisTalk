@@ -29,12 +29,10 @@ class CardAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<C
     }
 
     override fun getItemCount(): Int {
-        Log.d("CardAdapter", "getItemCount: ${cards.size}") // Check if getItemCount is returning 0
         return cards.size
     }
 
     fun submitList(cards: List<Card>) {
-        Log.d("CardAdapter", "submitList: $cards") // Check if submitList is being called with a non-empty list
         this.cards.clear()
         this.cards.addAll(cards)
         notifyDataSetChanged()

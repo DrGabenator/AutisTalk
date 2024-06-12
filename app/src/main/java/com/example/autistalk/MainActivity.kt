@@ -2,18 +2,13 @@ package com.example.autistalk
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.SearchView
-import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.autistalk.data.*
+import com.example.autistalk.data.Card
 import com.example.autistalk.view.CardAdapter
 import com.example.autistalk.view.CreateCardActivity
 import com.example.autistalk.view.MainViewModel
@@ -26,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
     private lateinit var fab: FloatingActionButton
+
+    private var originalCardList: List<Card> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,26 +40,43 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                viewModel.searchCards(query)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
-            }
-        })
-
         fab.setOnClickListener {
             startActivity(Intent(this, CreateCardActivity::class.java))
         }
 
+        viewModel.getAllCards()
+
         viewModel.cards.observe(this, Observer { cards ->
-            Log.d("MainActivity", "Received cards: $cards") // Check if cards is empty
+            originalCardList = cards
+            adapter.submitList(cards)
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getAllCards()
+
+        viewModel.cards.observe(this, Observer { cards ->
             adapter.submitList(cards)
         })
 
-        viewModel.getAllCards()
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                val filteredList = if (newText.isBlank()) {
+                    originalCardList
+                } else {
+                    originalCardList.filter { card ->
+                        card.text.contains(newText, ignoreCase = true)
+                    }
+                }
+                adapter.submitList(filteredList)
+                return false
+            }
+        })
     }
 }

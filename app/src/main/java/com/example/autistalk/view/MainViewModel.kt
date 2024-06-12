@@ -24,22 +24,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         cardRepository = CardRepository(cardDao)
     }
 
-    fun searchCards(query: String) {
-        viewModelScope.launch {
-            try {
-                val cards = cardRepository.searchCards(query)
-                _cards.postValue(cards ?: listOf())
-            } catch (_: Exception) {
-
-            }
-        }
-    }
-
-    fun createCard(text: String) {
+    fun createOrUpdateCard(card: Card) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val card = Card(text = text)
-                cardRepository.insertCard(card)
+                cardRepository.createOrUpdateCard(card)
             } catch (_: Exception) {
             }
         }
