@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "922834134004",
+    "project_id": "autistalk-f06a1",
+    "storage_bucket": "autistalk-f06a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922834134004:android:7f070f130c147bb4f30fa1",
+        "android_client_info": {
+          "package_name": "com.example.autistalk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF6qYwQvfN3GAMqgqeQZx0B_kcvSq4pe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
